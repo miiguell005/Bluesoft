@@ -1,0 +1,41 @@
+﻿<div>
+    <div class="col-md-12">
+        <a class="btn btn-default " ng-click="$ctrl.irAtras()" uib-tooltip="Átras" tooltip-placement="Top">
+            Átras
+        </a>
+    </div>
+    <div class="col-md-12 text-center">        
+        <span class="texto-30">{{$ctrl.titulo}}</span>
+    </div>
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <label>Nombre *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.tienda.Nombre" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.tienda.Nombre">
+                Es obligatorio ingresar el nombre
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Dirección *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.tienda.Direccion" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.tienda.Direccion">
+                Es obligatorio ingresar la dirección
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Teléfono *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.tienda.Telefono" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.tienda.Telefono">
+                Es obligatorio ingresar el teléfono
+            </span>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <br />
+            <button class="btn btn-primary" ng-click="$ctrl.guardarTienda()">Guardar</button>
+        </div>
+    </div>
+</div>

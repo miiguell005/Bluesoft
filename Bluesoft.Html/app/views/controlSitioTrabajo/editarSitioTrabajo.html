@@ -1,0 +1,42 @@
+﻿<div>
+    <div class="col-md-12">
+        <a class="btn btn-default " ng-click="$ctrl.irAtras()" uib-tooltip="Átras" tooltip-placement="Top">
+            Átras
+        </a>
+    </div>
+    <div class="col-md-12 text-center">
+        <span class="texto-30">{{$ctrl.titulo}}</span>
+    </div>
+    <div class="col-md-12">
+
+
+        <div class="col-md-12">
+            <label>Tienda *</label>
+            <select class="form-control" ng-model="$ctrl.sitioTrabajo.IdTienda" ng-options="c.IdTienda as c.Nombre for c in $ctrl.tiendas"></select>
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.sitioTrabajo.IdTienda">
+                Es obligatorio seleccionar la tienda
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Empleado *</label>
+            <select class="form-control" ng-model="$ctrl.sitioTrabajo.IdEmpleado" ng-options="c.IdEmpleado as c.Nombre + ' ' + c.Apellido   for c in $ctrl.empleados"></select>
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.sitioTrabajo.IdEmpleado">
+                Es obligatorio seleccionar el empleado
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Fecha de ingreso *</label>
+            <input class="form-control" type="date" ng-model="$ctrl.sitioTrabajo.FechaIngreso" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.sitioTrabajo.FechaIngreso">
+                Es obligatorio seleccionar la fecha de ingreso
+            </span>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <br />
+            <button class="btn btn-primary" ng-click="$ctrl.guardarSitioTrabajo()">Guardar</button>
+        </div>
+    </div>
+</div>

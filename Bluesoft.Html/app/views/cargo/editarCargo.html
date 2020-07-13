@@ -1,0 +1,33 @@
+﻿<div>
+    <div class="col-md-12">
+        <a class="btn btn-default " ng-click="$ctrl.irAtras()" uib-tooltip="Átras" tooltip-placement="Top">
+            Átras
+        </a>
+    </div>
+    <div class="col-md-12 text-center">        
+        <span class="texto-30">{{$ctrl.titulo}}</span>
+    </div>
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <label>Descripción *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.cargo.Descripcion" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.cargo.Descripcion">
+                Es obligatorio ingresar la descripción
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Salario *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.cargo.Salario" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.cargo.Salario">
+                Es obligatorio ingresar el salario
+            </span>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <br />
+            <button class="btn btn-primary" ng-click="$ctrl.guardarCargo()">Guardar</button>
+        </div>
+    </div>
+</div>

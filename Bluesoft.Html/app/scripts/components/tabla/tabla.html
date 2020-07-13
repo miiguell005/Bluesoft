@@ -1,0 +1,36 @@
+<div class="col-md-12" >
+
+    <div class="col-md-12">
+        <a class="btn btn-default " href="{{$ctrl.url}}/0" uib-tooltip="Crear" tooltip-placement="Top">
+            <i class="fa fa-plus"></i>
+        </a>
+        <br />
+        <br />
+    </div>
+    <table class="table table-bordered table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th></th>
+                <th ng-repeat="p in $ctrl.propiedades">{{p.etiqueta}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in $ctrl.data">
+                <td>
+                    <a class="btn btn-default " href="{{$ctrl.url}}/{{d[$ctrl.id]}}" uib-tooltip="Editar" tooltip-placement="Top">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a class="btn btn-default " ng-click="$ctrl.eliminar(d)" uib-tooltip="Eliminar" tooltip-placement="Top">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
+                <td ng-repeat="p in $ctrl.propiedades">
+                    <span ng-if="!p.esDinero && !p.esFecha">{{d[p.propiedad]}}</span>
+                    <span ng-if="p.esDinero">{{d[p.propiedad] | currency : "$" : "0"}}</span>
+                    <span ng-if="p.esFecha">{{d[p.propiedad] | date : 'dd/MM/yyyy'}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

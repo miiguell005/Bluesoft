@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BluesoftTecnologyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="IdCargo" />
+          </Key>
+          <Property Name="IdCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Salario" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ControlSitioTrabajo">
+          <Key>
+            <PropertyRef Name="IdControlSitioTrabajo" />
+          </Key>
+          <Property Name="IdControlSitioTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTienda" Type="int" Nullable="false" />
+          <Property Name="IdEmpleado" Type="int" Nullable="false" />
+          <Property Name="FechaIngreso" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCargo" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NumeroDocumento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Genero" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tienda">
+          <Key>
+            <PropertyRef Name="IdTienda" />
+          </Key>
+          <Property Name="IdTienda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ControlSitioTrabajo_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="ControlSitioTrabajo" Type="Self.ControlSitioTrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="ControlSitioTrabajo">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlSitioTrabajo_Tienda">
+          <End Role="Tienda" Type="Self.Tienda" Multiplicity="1" />
+          <End Role="ControlSitioTrabajo" Type="Self.ControlSitioTrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="ControlSitioTrabajo">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleado_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="IdCargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BluesoftTecnologyModelStoreContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ControlSitioTrabajo" EntityType="Self.ControlSitioTrabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tienda" EntityType="Self.Tienda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ControlSitioTrabajo_Empleado" Association="Self.FK_ControlSitioTrabajo_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlSitioTrabajo_Tienda" Association="Self.FK_ControlSitioTrabajo_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleado_Cargo" Association="Self.FK_Empleado_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BluesoftTecnologyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BluesoftTecnologyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargo" EntityType="BluesoftTecnologyModel.Cargo" />
+          <EntitySet Name="ControlSitioTrabajo" EntityType="BluesoftTecnologyModel.ControlSitioTrabajo" />
+          <EntitySet Name="Empleado" EntityType="BluesoftTecnologyModel.Empleado" />
+          <EntitySet Name="Tienda" EntityType="BluesoftTecnologyModel.Tienda" />
+          <AssociationSet Name="FK_Empleado_Cargo" Association="BluesoftTecnologyModel.FK_Empleado_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlSitioTrabajo_Empleado" Association="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlSitioTrabajo_Tienda" Association="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="IdCargo" />
+          </Key>
+          <Property Name="IdCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Salario" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Empleado" Relationship="BluesoftTecnologyModel.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="ControlSitioTrabajo">
+          <Key>
+            <PropertyRef Name="IdControlSitioTrabajo" />
+          </Key>
+          <Property Name="IdControlSitioTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTienda" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Empleado" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado" FromRole="ControlSitioTrabajo" ToRole="Empleado" />
+          <NavigationProperty Name="Tienda" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda" FromRole="ControlSitioTrabajo" ToRole="Tienda" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCargo" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDocumento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Genero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cargo" Relationship="BluesoftTecnologyModel.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
+          <NavigationProperty Name="ControlSitioTrabajo" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado" FromRole="Empleado" ToRole="ControlSitioTrabajo" />
+        </EntityType>
+        <EntityType Name="Tienda">
+          <Key>
+            <PropertyRef Name="IdTienda" />
+          </Key>
+          <Property Name="IdTienda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ControlSitioTrabajo" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda" FromRole="Tienda" ToRole="ControlSitioTrabajo" />
+        </EntityType>
+        <Association Name="FK_Empleado_Cargo">
+          <End Type="BluesoftTecnologyModel.Cargo" Role="Cargo" Multiplicity="1" />
+          <End Type="BluesoftTecnologyModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="IdCargo" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlSitioTrabajo_Empleado">
+          <End Type="BluesoftTecnologyModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="BluesoftTecnologyModel.ControlSitioTrabajo" Role="ControlSitioTrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="ControlSitioTrabajo">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlSitioTrabajo_Tienda">
+          <End Type="BluesoftTecnologyModel.Tienda" Role="Tienda" Multiplicity="1" />
+          <End Type="BluesoftTecnologyModel.ControlSitioTrabajo" Role="ControlSitioTrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="ControlSitioTrabajo">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BluesoftTecnologyModelStoreContainer" CdmEntityContainer="BluesoftTecnologyEntities">
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="BluesoftTecnologyModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="Salario" ColumnName="Salario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlSitioTrabajo">
+            <EntityTypeMapping TypeName="BluesoftTecnologyModel.ControlSitioTrabajo">
+              <MappingFragment StoreEntitySet="ControlSitioTrabajo">
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdTienda" ColumnName="IdTienda" />
+                <ScalarProperty Name="IdControlSitioTrabajo" ColumnName="IdControlSitioTrabajo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="BluesoftTecnologyModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tienda">
+            <EntityTypeMapping TypeName="BluesoftTecnologyModel.Tienda">
+              <MappingFragment StoreEntitySet="Tienda">
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdTienda" ColumnName="IdTienda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

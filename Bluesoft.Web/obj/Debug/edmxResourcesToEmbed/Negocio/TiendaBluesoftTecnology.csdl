@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BluesoftTecnologyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BluesoftTecnologyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cargo" EntityType="BluesoftTecnologyModel.Cargo" />
+    <EntitySet Name="ControlSitioTrabajo" EntityType="BluesoftTecnologyModel.ControlSitioTrabajo" />
+    <EntitySet Name="Empleado" EntityType="BluesoftTecnologyModel.Empleado" />
+    <EntitySet Name="Tienda" EntityType="BluesoftTecnologyModel.Tienda" />
+    <AssociationSet Name="FK_Empleado_Cargo" Association="BluesoftTecnologyModel.FK_Empleado_Cargo">
+      <End Role="Cargo" EntitySet="Cargo" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ControlSitioTrabajo_Empleado" Association="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ControlSitioTrabajo_Tienda" Association="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda">
+      <End Role="Tienda" EntitySet="Tienda" />
+      <End Role="ControlSitioTrabajo" EntitySet="ControlSitioTrabajo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cargo">
+    <Key>
+      <PropertyRef Name="IdCargo" />
+    </Key>
+    <Property Name="IdCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Salario" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Empleado" Relationship="BluesoftTecnologyModel.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="ControlSitioTrabajo">
+    <Key>
+      <PropertyRef Name="IdControlSitioTrabajo" />
+    </Key>
+    <Property Name="IdControlSitioTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTienda" Type="Int32" Nullable="false" />
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Empleado" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado" FromRole="ControlSitioTrabajo" ToRole="Empleado" />
+    <NavigationProperty Name="Tienda" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda" FromRole="ControlSitioTrabajo" ToRole="Tienda" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCargo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroDocumento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Genero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cargo" Relationship="BluesoftTecnologyModel.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
+    <NavigationProperty Name="ControlSitioTrabajo" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Empleado" FromRole="Empleado" ToRole="ControlSitioTrabajo" />
+  </EntityType>
+  <EntityType Name="Tienda">
+    <Key>
+      <PropertyRef Name="IdTienda" />
+    </Key>
+    <Property Name="IdTienda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ControlSitioTrabajo" Relationship="BluesoftTecnologyModel.FK_ControlSitioTrabajo_Tienda" FromRole="Tienda" ToRole="ControlSitioTrabajo" />
+  </EntityType>
+  <Association Name="FK_Empleado_Cargo">
+    <End Type="BluesoftTecnologyModel.Cargo" Role="Cargo" Multiplicity="1" />
+    <End Type="BluesoftTecnologyModel.Empleado" Role="Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cargo">
+        <PropertyRef Name="IdCargo" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="IdCargo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ControlSitioTrabajo_Empleado">
+    <End Type="BluesoftTecnologyModel.Empleado" Role="Empleado" Multiplicity="1" />
+    <End Type="BluesoftTecnologyModel.ControlSitioTrabajo" Role="ControlSitioTrabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="IdEmpleado" />
+      </Principal>
+      <Dependent Role="ControlSitioTrabajo">
+        <PropertyRef Name="IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ControlSitioTrabajo_Tienda">
+    <End Type="BluesoftTecnologyModel.Tienda" Role="Tienda" Multiplicity="1" />
+    <End Type="BluesoftTecnologyModel.ControlSitioTrabajo" Role="ControlSitioTrabajo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tienda">
+        <PropertyRef Name="IdTienda" />
+      </Principal>
+      <Dependent Role="ControlSitioTrabajo">
+        <PropertyRef Name="IdTienda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

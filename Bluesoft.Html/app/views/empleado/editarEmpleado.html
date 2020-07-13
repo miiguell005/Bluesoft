@@ -1,0 +1,65 @@
+﻿<div>
+    <div class="col-md-12">
+        <a class="btn btn-default " ng-click="$ctrl.irAtras()" uib-tooltip="Átras" tooltip-placement="Top">
+            Átras
+        </a>
+    </div>
+    <div class="col-md-12 text-center">        
+        <span class="texto-30">{{$ctrl.titulo}}</span>
+    </div>
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <label>Nombre *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.empleado.Nombre" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.Nombre">
+                Es obligatorio ingresar el nombre
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Apellido *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.empleado.Apellido" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.Apellido">
+                Es obligatorio ingresar el apellido
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Cargo *</label>
+            <select class="form-control" ng-model="$ctrl.empleado.IdCargo" ng-options="c.IdCargo as c.Descripcion for c in $ctrl.cargos"></select>
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.IdCargo">
+                Es obligatorio seleccionar el cargo
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Número de documento *</label>
+            <input class="form-control" type="text" ng-model="$ctrl.empleado.NumeroDocumento" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.NumeroDocumento">
+                Es obligatorio ingresar el número de documento
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Fecha de nacimiento *</label>
+            <input class="form-control" type="date" ng-model="$ctrl.empleado.FechaNacimiento" />
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.FechaNacimiento">
+                Es obligatorio seleccionar la fecha de nacimiento
+            </span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Genero *</label>
+            <select class="form-control" ng-model="$ctrl.empleado.Genero" ng-options="g.propiedad as g.etiqueta for g in $ctrl.generos"></select>
+            <span class="mensaje-error" ng-if="$ctrl.botonGuardarSeleccionado && !$ctrl.empleado.Genero">
+                Es obligatorio seleccionar el genero
+            </span>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <br />
+            <button class="btn btn-primary" ng-click="$ctrl.guardarEmpleado()">Guardar</button>
+        </div>
+    </div>
+</div>
